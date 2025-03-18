@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/", createFoodOrder); // Create a new food order
 router.get("/", getFoodOrders); // Get all food orders
 router.get("/:userId", getFoodOrderByUser); // Get food orders by user ID
-router.patch("/:foodOrderId", updateFoodOrder); // Update food order
-router.patch("/:foodOrderId/cancel", cancelFoodOrder);
+router.put("/:foodOrderId", updateFoodOrder); // Update food order
+router.put("/:foodOrderId/cancel", cancelFoodOrder);
 
 export default router;

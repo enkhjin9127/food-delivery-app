@@ -5,6 +5,12 @@ const updateFoodOrder = async (req, res) => {
     const { foodOrderId } = req.params;
     const { status } = req.body;
 
+    // Validate status
+    const validStatuses = ["pending", "confirmed", "delivered", "cancelled"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
+    }
+
     const updatedOrder = await FoodOrder.findByIdAndUpdate(
       foodOrderId,
       { status },

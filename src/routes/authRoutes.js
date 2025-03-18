@@ -5,10 +5,9 @@ import User from "../models/user.scheme.js";
 
 const router = express.Router();
 
-// **SIGN UP (Register)**
 router.post("/sign-up", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phoneNumber, address } = req.body; // Include missing fields
 
     // Check if user already exists
     let user = await User.findOne({ email });
@@ -17,8 +16,15 @@ router.post("/sign-up", async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create new user
-    user = new User({ name, email, password: hashedPassword });
+    // Create new user with all required fields
+    user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      phoneNumber,
+      address,
+    });
+
     await user.save();
 
     res.status(201).json({ message: "User registered successfully" });
